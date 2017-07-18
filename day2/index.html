@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JS + CSS Clock</title>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand min-hand"></div>
+      <div class="hand second-hand"></div>
+    </div>
+  </div>
+
+  <script>
+    let initialised = false;
+    let watch = document.querySelector('.clock');
+    if (!initialised) watch.style.visibility = 'hidden';
+
+    let secondHand = document.querySelector('.second-hand');
+    let minuteHand = document.querySelector('.min-hand');
+    let hourHand = document.querySelector('.hour-hand');
+
+    function setTime() {
+      let date = new Date();
+      let seconds = date.getSeconds();
+      let minutes = date.getMinutes();
+      let hours = date.getHours();
+
+      seconds = sixtyToDegrees(seconds) + 90;
+      minutes = sixtyToDegrees(minutes) + 90;
+      hours = twentyFourToDegrees(hours) + 90;
+
+      if (seconds > 440) {
+        secondHand.style.transition = 'none';
+        console.log('none!');
+      }
+      if (seconds == 96) {
+        secondHand.style.transition = 'all 1s';
+        console.log('90!');
+      }
+
+      secondHand.style.transform = `rotate(${seconds}deg)`;
+      minuteHand.style.transform = `rotate(${minutes}deg)`;
+      hourHand.style.transform = `rotate(${hours}deg)`;
+
+      console.log(hours, minutes, seconds);
+
+      if (!initialised) {
+        watch.style.visibility = 'visible';
+        initialised = true;
+      }
+    }
+
+    setInterval(setTime, 1000);
+
+    function sixtyToDegrees(number) {
+      return (number / 60) * 360;
+    }
+
+    function twentyFourToDegrees(number) {
+      return (number / 12) * 360;
+    }
+  </script>
+</body>
+
+</html>
