@@ -65,6 +65,7 @@
 
   <script>
     const controls = document.querySelectorAll('.controls input');
+    console.log(controls[0].dataset);
 
     function handleUpdate() {
         const suffix = this.dataset.sizing || '';
